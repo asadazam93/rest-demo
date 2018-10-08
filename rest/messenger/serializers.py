@@ -10,7 +10,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class MessageSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Message
         fields = ('id', 'text', 'sender', 'sender_name', 'receiver', 'receiver_name')
@@ -19,7 +18,23 @@ class MessageSerializer(serializers.ModelSerializer):
     receiver_name = serializers.SerializerMethodField('get_receivers_name')
 
     def get_senders_name(self, obj):
+        """
+
+        Args:
+            obj:
+
+        Returns:
+            Returns username of the sender
+        """
         return obj.sender.username
 
     def get_receivers_name(self, obj):
+        """
+
+        Args:
+            obj:
+
+        Returns:
+            Returns username of the receiver
+        """
         return obj.receiver.username

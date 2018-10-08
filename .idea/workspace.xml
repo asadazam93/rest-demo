@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="182af41e-946c-43d3-9f0d-b862f700ef79" name="Default" comment="" />
+    <list default="true" id="182af41e-946c-43d3-9f0d-b862f700ef79" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/messenger/serializers.py" afterPath="$PROJECT_DIR$/rest/messenger/serializers.py" />
+    </list>
     <ignored path="demo.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -25,10 +27,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rest/messenger/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.60402685">
               <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
@@ -37,24 +39,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="serializers.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serializers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rest/messenger/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40268457">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="37" column="44" selection-start-line="37" selection-start-column="44" selection-end-line="37" selection-end-column="44" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/lib/python3.5/site-packages/django/contrib/auth/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="287" column="28" selection-start-line="287" selection-start-column="28" selection-end-line="287" selection-end-column="28" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -75,10 +67,8 @@
         <entry file="file://$PROJECT_DIR$/rest/messenger/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
+              <caret line="0" column="41" selection-start-line="0" selection-start-column="41" selection-end-line="0" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -102,6 +92,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -122,7 +115,7 @@
     <option name="width" value="1280" />
     <option name="height" value="800" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -536,10 +529,18 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rest/settings.py">
+    <entry file="file://$PROJECT_DIR$/demo/lib/python3.5/site-packages/django/contrib/auth/base_user.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.86577183">
+          <caret line="46" column="6" selection-start-line="46" selection-start-column="6" selection-end-line="46" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/lib/python3.5/site-packages/django/contrib/auth/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23266219">
+          <caret line="287" column="28" selection-start-line="287" selection-start-column="28" selection-end-line="287" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -554,48 +555,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/lib/python3.5/site-packages/django/contrib/auth/base_user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.86577183">
-          <caret line="46" column="6" selection-start-line="46" selection-start-column="6" selection-end-line="46" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/lib/python3.5/site-packages/django/contrib/auth/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="287" column="28" selection-start-line="287" selection-start-column="28" selection-end-line="287" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rest/messenger/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rest/messenger/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+          <caret line="0" column="41" selection-start-line="0" selection-start-column="41" selection-end-line="0" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rest/messenger/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40268457">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="44" selection-start-line="37" selection-start-column="44" selection-end-line="37" selection-end-column="44" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest/messenger/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60402685">
+          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
