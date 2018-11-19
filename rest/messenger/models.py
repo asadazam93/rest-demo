@@ -21,10 +21,18 @@ class Message(models.Model):
     )
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class Restaurant(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     longitude = models.FloatField()
     latitude = models.FloatField()
+    categories = models.ManyToManyField(Category, blank=True, null=True, related_name='restaurants')
 
     def __str__(self):
         return self.name
