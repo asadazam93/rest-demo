@@ -37,8 +37,7 @@ class MessageDetail(mixins.RetrieveModelMixin,
         return self.destroy(request, *args, **kwargs)
 
 
-class RestaurantListView(TemplateView):
-    template_name = 'restaurant_list.html'
+class RestaurantListView(generics.GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         long = self.kwargs.get('long')
