@@ -17,12 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from rest.messenger.views import MessageList, MessageDetail
+from rest.messenger.views import MessageList, MessageDetail, RestaurantListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^messages/$', MessageList.as_view()),
     url(r'^messages/(?P<pk>[0-9]+)/$', MessageDetail.as_view()),
+    url(r"^nearest_locations/(?P<long>[^/]*)/(?P<lat>[^/]*)/$",
+                      RestaurantListView.as_view(),
+                      name='restaurant_list'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

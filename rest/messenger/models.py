@@ -19,3 +19,12 @@ class Message(models.Model):
         related_name='receiver',
         null=False
     )
+
+
+class Restaurant(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
+    longitude = models.FloatField()
+    latitude = models.FloatField()
+
+    def __str__(self):
+        return self.name

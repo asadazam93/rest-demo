@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from rest.messenger.models import Message
+from rest.messenger.models import Message, Restaurant
 from rest_framework import serializers
 
 
@@ -38,3 +38,9 @@ class MessageSerializer(serializers.ModelSerializer):
             Returns username of the receiver
         """
         return obj.receiver.username
+
+
+class RestaurantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Restaurant
+        fields = ('name', 'longitude', 'latitude')
