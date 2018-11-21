@@ -21,11 +21,10 @@ from rest.messenger.views import MessageList, MessageDetail, RestaurantListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^messages/$', MessageList.as_view()),
-    url(r'^messages/(?P<pk>[0-9]+)/$', MessageDetail.as_view()),
-    url(r"^nearest_locations/(?P<long>[^/]*)/(?P<lat>[^/]*)/$",
-                      RestaurantListView.as_view(),
-                      name='restaurant_list'),
+    path('messages/', MessageList.as_view()),
+    path('messages/<pk>/', MessageDetail.as_view()),
+    path("nearest_locations/<long>/<lat>/",
+                      RestaurantListView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
