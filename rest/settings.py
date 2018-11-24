@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'rest.messenger'
 ]
 
+MAX_DISTANCE_KM = 1000
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -2,9 +2,9 @@ from rest.messenger.models import Message, Restaurant
 from rest.messenger.serializers import MessageSerializer
 from rest_framework import mixins
 from rest_framework import generics
-from django.views.generic import TemplateView
+from rest.settings import MAX_DISTANCE_KM
 from django.http import JsonResponse
-from math import cos, asin, sqrt
+from math import sin, cos, sqrt, atan2, radians
 
 
 class MessageList(mixins.ListModelMixin,
@@ -38,7 +38,6 @@ class MessageDetail(mixins.RetrieveModelMixin,
 
 
 class RestaurantListView(generics.GenericAPIView):
-
     def get(self, request, *args, **kwargs):
         long = self.kwargs.get('long')
         lat = self.kwargs.get('lat')
@@ -56,11 +55,22 @@ class RestaurantListView(generics.GenericAPIView):
                 if categories:
                     # expect categories to be a comma separated list e.g pakistani,italian,greek
                     for category in categories.split(','):
-                        if category in [restaurant_category.name for restaurant_category in restaurant.categories.all()]:
-                            restaurants.append({'name': restaurant.name, 'distance': distance_from_current_location})
+                        restaurant_category_names = [restaurant_category.name for restaurant_category in
+                                                     restaurant.categories.all()]
+                        # check that the distance within the maximum distance
+                        if category in restaurant_category_names and distance_from_current_location < MAX_DISTANCE_KM:
+                            restaurants.append({
+                                'name': restaurant.name,
+                                'distance_in_km': distance_from_current_location,
+                                'distance_in_miles': distance_from_current_location * 0.621371
+                            })
                             break
-                else:
-                    restaurants.append({'name': restaurant.name, 'distance': distance_from_current_location})
+                elif distance_from_current_location < MAX_DISTANCE_KM:
+                    restaurants.append({
+                        'name': restaurant.name,
+                        'distance_in_km': distance_from_current_location,
+                        'distance_in_miles': distance_from_current_location * 0.621371
+                    })
             if not restaurants:
                 return JsonResponse({'error': 'No related restaurant found'})
             restaurants = sorted(restaurants, key=lambda k: k['distance'])
@@ -70,6 +80,15 @@ class RestaurantListView(generics.GenericAPIView):
 
     @staticmethod
     def distance(lat1, lon1, lat2, lon2):
-        p = 0.017453292519943295
-        area = 0.5 - cos((lat2-lat1)*p)/2 + cos(lat1*p)*cos(lat2*p) * (1-cos((lon2-lon1)*p)) / 2
-        return 12742 * asin(sqrt(area))
+        radius = 6373.0
+        lat1 = radians(lat1)
+        lon1 = radians(lon1)
+        lat2 = radians(lat2)
+        lon2 = radians(lon2)
+        dlon = lon2 - lon1
+        dlat = lat2 - lat1
+        a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+        c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+        distance = radius * c
+        return distance
