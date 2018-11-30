@@ -1,10 +1,13 @@
 from rest.messenger.models import Message, Restaurant
-from rest.messenger.serializers import MessageSerializer
+from rest.messenger.serializers import MessageSerializer, RestaurantSerializer
+from rest_framework import filters
+from rest_framework.response import Response
+from rest_framework.views import status
 from rest_framework import mixins
 from rest_framework import generics
+from django.db import transaction
 from rest.settings import MAX_DISTANCE_KM
-from django.http import JsonResponse
-from math import sin, cos, sqrt, atan2, radians
+from rest.messenger.utils import distance
 
 
 class MessageList(mixins.ListModelMixin,
@@ -37,58 +40,31 @@ class MessageDetail(mixins.RetrieveModelMixin,
         return self.destroy(request, *args, **kwargs)
 
 
-class RestaurantListView(generics.GenericAPIView):
+class RestaurantListView(generics.ListAPIView):
+
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter,)
+    search_fields = ('categories__name',)
+    ordering_fields = ('name', 'distance_from_location')
+    ordering = ('distance_from_location',)
+
     def get(self, request, *args, **kwargs):
-        long = self.kwargs.get('long')
-        lat = self.kwargs.get('lat')
-        # categories query parameter may or may not exist
-        categories = self.request.GET.get('cat', '')
+        long = float(kwargs.get('long'))
+        lat = float(kwargs.get('lat'))
+        queryset = self.filter_queryset(self.get_nearby_restaurants(long, lat))
 
-        if lat and long:
-            lat = float(lat)
-            lon = float(long)
-            restaurants = []
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def get_nearby_restaurants(self, long, lat):
+        with transaction.atomic():
             for restaurant in Restaurant.objects.all():
-                restaurant_lon = restaurant.longitude
-                restaurant_lat = restaurant.latitude
-                distance_from_current_location = self.distance(lat, lon, restaurant_lat, restaurant_lon)
-                if categories:
-                    # expect categories to be a comma separated list e.g pakistani,italian,greek
-                    for category in categories.split(','):
-                        restaurant_category_names = [restaurant_category.name for restaurant_category in
-                                                     restaurant.categories.all()]
-                        # check that the distance within the maximum distance
-                        if category in restaurant_category_names and distance_from_current_location < MAX_DISTANCE_KM:
-                            restaurants.append({
-                                'name': restaurant.name,
-                                'distance_in_km': distance_from_current_location,
-                                'distance_in_miles': distance_from_current_location * 0.621371
-                            })
-                            break
-                elif distance_from_current_location < MAX_DISTANCE_KM:
-                    restaurants.append({
-                        'name': restaurant.name,
-                        'distance_in_km': distance_from_current_location,
-                        'distance_in_miles': distance_from_current_location * 0.621371
-                    })
-            if not restaurants:
-                return JsonResponse({'error': 'No related restaurant found'})
-            restaurants = sorted(restaurants, key=lambda k: k['distance'])
-            return JsonResponse({'restaurants': restaurants})
-        else:
-            return JsonResponse({'error': 'empty_location'})
-
-    @staticmethod
-    def distance(lat1, lon1, lat2, lon2):
-        radius = 6373.0
-        lat1 = radians(lat1)
-        lon1 = radians(lon1)
-        lat2 = radians(lat2)
-        lon2 = radians(lon2)
-        dlon = lon2 - lon1
-        dlat = lat2 - lat1
-        a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
-        c = 2 * atan2(sqrt(a), sqrt(1 - a))
-
-        distance = radius * c
-        return distance
+                restaurant.distance_from_location = distance(lat, long, restaurant.latitude, restaurant.longitude)
+                restaurant.save()
+        return Restaurant.objects.filter(distance_from_location__lte=MAX_DISTANCE_KM)
